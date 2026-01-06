@@ -21,13 +21,13 @@ button {
   padding: 13px;
   border-radius: 5px;
   border: none;
-  background-color: blue;
+  background-color: rgb(255, 0, 153);
   color: #fff;
   font-weight: 500;
 }
 .value {
   padding: 20px;
   margin: 10px;
-  background-color: palegreen;
+  background-color: rgb(142, 224, 235);
   border-radius: 5px;
 }
