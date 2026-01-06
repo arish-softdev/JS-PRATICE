@@ -20,6 +20,6 @@ async function fun() {
         </div>`
     });
     div.innerHTML=output;
-console.log(output);
+
 }
 
