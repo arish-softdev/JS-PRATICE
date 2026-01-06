@@ -22,4 +22,3 @@ async function fun() {
     div.innerHTML=output;
 
 }
-
