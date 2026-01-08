@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUT in javascript</title>
+</head>
+<style>
+    *{
+        font-family: 'poppins';
+    }
+    body{
+        margin: 20px;
+    }
+    .box{
+        max-width: 900px;
+        margin: 100px auto;
+        padding: 20px;
+    }
+    .cards{
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        gap: 20px;
+    }
+   .formbox{
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    display: none;
+    
+   }
+   input{
+    margin-bottom: 20px;
+    padding: 10px;
+    max-width: 500px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+   }
+   #form{
+    display: flex;
+    flex-direction: column;
+   }
+   #form button{
+    width: 200px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: grey;
+    color: #fff;
+    margin: 10px auto;
+   }
+.card{
+    border:  1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+}
+.card img{
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.card h3{
+    margin: 10px 0;
+    font-size: 17px;
+}
+.card p{
+    margin: 5px 0;
+    color: #555;
+}
+.card button{
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+</style>
+<body>
+    <div class="box">
+        <h2>PUT in javascript</h2>
+        <div id="cardbox" class="cards"></div>
+        <div class="formbox" id="updateform">
+            <h3>Update Task</h3>
+            <form  id="form">
+                <input type="text" id="editname" name="name" placeholder="Name">
+                <input type="email" id="editemail" name="email" placeholder="Email">
+                <input type="tel" id="editphone" name="phone" placeholder="Phone">
+                <button type="submit">Update Task</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+   let tasks = [];
+const cardbox = document.querySelector("#cardbox");
+const updateform = document.querySelector("#updateform");
+const form = document.querySelector("#form");
+const editname = document.querySelector("#editname");
+const editemail = document.querySelector("#editemail");
+const editphone = document.querySelector("#editphone");
+let currentTaskid = null;
+
+// fetch and api render
+function fetchtask() {
+  fetch("https://694ce310da5ddabf0037bc1a.mockapi.io/animals/user")
+    .then((res) => res.json())
+    .then((data) => {
+      tasks = data;
+      rendercards();
+    })
+    .catch((error) => {
+      console.log("Error : failed to fetch", error);
+    });
+}
+
+// render task
+function rendercards() {
+  cardbox.innerHTML = "";
+  let output = "";
+
+  tasks.forEach((task) => {
+    output += `
+      <div class="card">
+        <img src="${task.avatar}" alt="${task.name}"/>
+        <h3>Name : ${task.name}</h3>
+        <p>Email : ${task.email}</p>
+        <p>Phone : ${task.phone}</p>
+        <button onclick="editask('${task.id}')">Update</button>
+      </div>
+    `;
+  });
+
+  cardbox.innerHTML = output;
+}
+
+// Handle the "Update" button click
+function editask(id) {
+  const task = tasks.find((t) => t.id === id);
+  if (!task) return;
+
+  currentTaskid = id;
+  updateform.style.display = "block";
+  editname.value = task.name;
+  editemail.value = task.email;
+  editphone.value = task.phone;
+}
+
+// Handle the form submission
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!currentTaskid) return;
+
+  const updatetask = {
+    name: editname.value,
+    email: editemail.value,
+    phone: editphone.value,
+  };
+
+  fetch(
+    `https://694ce310da5ddabf0037bc1a.mockapi.io/animals/user/${currentTaskid}`,
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatetask),
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      tasks = tasks.map((task) =>
+        task.id === data.id ? data : task
+      );
+      rendercards();
+      updateform.style.display = "none";
+      alert("Task updated successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+// fetch tasks on page load
+fetchtask();
+
+</script>
+</html>
