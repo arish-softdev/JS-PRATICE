@@ -3,9 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>GEt in javacript</title>
 </head>
+<style>
+    *{
+        font-family: 'poppins';
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    h2{
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+    button{
+        padding: 13px;
+        border-radius: 8px;
+        border: none;
+        width: 150px;
+        background-color: blue;
+        color: #fff;
+        font-size: 17px;
+        font-weight: 600;
+    }
+    .fetchdiv{
+          display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        gap: 20px;
+    }
+    .image{
+        max-width: 800px;
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    }
+    .image img{
+       margin: 10px;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;  
+    }
+    .image p{
+        font-size: 17px;
+        font-weight: 600;
+    }
+</style>
 <body>
-    
+    <div class="box">
+        <h2>GET In Javascript</h2>
+        <button id="btn">Click Me</button>
+       <div class="fetchdiv"></div>
+    </div>
 </body>
+<script>
+    const btn=document.querySelector("#btn");
+    btn.addEventListener("click",getfun)
+
+    function getfun() {
+        fetch("https://694ce310da5ddabf0037bc1a.mockapi.io/animals/user",{
+            method:"GET",
+            headers:{"Content-Type":"application/json"}
+        })
+        .then((res)=>{
+            if (res.ok) {
+                return res.json()
+            }
+            throw new Error("Failed to fetch");
+            
+        })
+        .then((data)=>{
+            const box=document.querySelector(".fetchdiv");
+            box.innerHTML+=""
+            data.forEach((item) => {
+                const image=`
+                <div class="image">
+                <img src="${item.avatar}" alt="${item.name}"/>
+                <h3>${"Name : " +item.name}</h3>
+                <p>${"Email : " +item.email}</p>
+                </div>`
+                box.innerHTML+=image;
+            });
+            
+        })
+        .catch((error)=>{
+            console.log(error);
+            
+        })
+    }
+    getfun()
+</script>
 </html>
