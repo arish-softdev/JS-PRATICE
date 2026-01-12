@@ -14,6 +14,23 @@ function getfun() {
         
     })
     .then ((data) => {
-        const box = document.querySelector("#fetchdiv")
+        const box = document.querySelector("#fetchdiv");
+        box.innerHTML = "" ;
+
+        data.forEach((item) => {
+            const image = ` 
+            <div class="image">
+            <img src="${item.avatar}" alt="${item.name}">
+            <p>${"Name : " + item.name}</p>
+            </div>
+            `;
+            box.innerHTML += image;
+
+        })
     })
+    .catch((err) => {
+        console.error(err);
+        
+    });
 }
+getfun();
