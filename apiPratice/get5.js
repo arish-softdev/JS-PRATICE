@@ -13,4 +13,7 @@ function getfun() {
         throw new Error("Failed to Fetch");
         
     })
+    .then ((data) => {
+        const box = document.querySelector("#fetchdiv")
+    })
 }
