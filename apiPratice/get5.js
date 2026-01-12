@@ -23,7 +23,7 @@ function getfun() {
             <img src="${item.avatar}" alt="${item.name}">
             <p>${"Name : " + item.name}</p>
             </div>
-            `;
+        `;
             box.innerHTML += image;
 
         })
