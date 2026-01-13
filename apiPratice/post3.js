@@ -23,7 +23,21 @@ form.addEventListener("submit", (event) => {
         throw new Error("Failed to Fetch");
         
     })
-    .then ((data) {
-        const response = document.querySelector
+    .then ((data) => {
+        const response = document.querySelector("#resmsg");
+        response.style.display = "block";
+        response.textContent = "Task Created Successfully";
+        const error = document.querySelector("#errmsg");
+        error.style.display = "none";
+
+        console.log(data);
+        
+    })
+    .catch ((error) => {
+        const error = document.querySelector("#errmsg");
+        error.style.display = "block";
+        error.textContent = error.message;
+        const response = document.querySelector("resmsg");
+        response.style.display = "none";
     })
 })
