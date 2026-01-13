@@ -32,7 +32,7 @@ form.addEventListener("submit", (event) => {
       console.log(data);
     })
     .catch((error) => {
-      const errormsg = document.querySelector("#errormsg");
+      const error = document.querySelector("#errormsg");
       errormsg.style.display = "block";
       errormsg.textContent = error.message;
       const resmsg = document.querySelector("#resmsg");
