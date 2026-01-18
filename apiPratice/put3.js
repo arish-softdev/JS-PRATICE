@@ -69,7 +69,7 @@ form.addEventListener("submit", (event) => {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatetask),
-    }
+    },
   )
     .then((res) => res.json())
     .then((data) => {
