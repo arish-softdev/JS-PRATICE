@@ -11,3 +11,9 @@ let no = [1, 2, 3, 4, 5];
 
 no.pop()
 console.log(no);
+
+// Map()
+let nos = [1, 2, 3, 4, 5]; 
+
+let doubled = nos.map(n => n * 2);
+console.log(doubled);
