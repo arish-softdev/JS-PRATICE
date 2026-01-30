@@ -35,5 +35,8 @@ let nnumbers = [1, 2, 3, 4, 5];
 let result = nnumbers.find(n => n > 3);
 console.log(result);
 
+// Reduce()
+let nnumber = [1, 2, 3, 4, 5]; 
 
-
+let output = nnumber.reduce((sum, n) => sum + n, 0);
+console.log(output);
