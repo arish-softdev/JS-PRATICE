@@ -28,3 +28,12 @@ console.log(even);
 let numbers = [1, 2, 3, 4, 5]; 
 
 numbers.forEach(n => console.log(n));
+
+// Find()
+let nnumbers = [1, 2, 3, 4, 5];
+
+let result = nnumbers.find(n => n > 3);
+console.log(result);
+
+
+
