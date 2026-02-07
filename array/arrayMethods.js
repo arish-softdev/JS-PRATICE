@@ -40,3 +40,4 @@ let nnumber = [1, 2, 3, 4, 5];
 
 let output = nnumber.reduce((sum, n) => sum + n, 0);
 console.log(output);
+
